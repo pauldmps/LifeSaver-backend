@@ -15,7 +15,7 @@ var tokenController = require('./Controllers/validate');
     + process.env.OPENSHIFT_MONGODB_DB_HOST + ':'
     + process.env.OPENSHIFT_MONGODB_DB_PORT + '/lifesaver'); */
 
-mongoose.connect(process.env.OPENSHIFT_MONGODB_DB_URL + '/lifesaver');
+mongoose.connect(process.env.OPENSHIFT_MONGODB_DB_URL);
 
 
 app.use(bodyParser.urlencoded({extended:false}));
