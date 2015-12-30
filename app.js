@@ -10,8 +10,8 @@ var userController = require('./Controllers/user');
 var authController = require('./Controllers/auth');
 var tokenController = require('./Controllers/validate');
 
-mongoose.connect('mongodb://admin:ZEs8tLbvK71D' + process.env.OPENSHIFT_MONGODB_DB_HOST + ':'
-    + process.env.OPENSHIFT_MONGODB_DB_PORT + '/lifesaver');
+/*mongoose.connect('mongodb://admin:ZEs8tLbvK71D' + process.env.OPENSHIFT_MONGODB_DB_HOST + ':'
+    + process.env.OPENSHIFT_MONGODB_DB_PORT + '/lifesaver'); */
 
 
 app.use(bodyParser.urlencoded({extended:false}));
