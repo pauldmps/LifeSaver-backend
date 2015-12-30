@@ -13,6 +13,7 @@ var tokenController = require('./Controllers/validate');
 mongoose.connect('mongodb://admin:ZEs8tLbvK71D' + process.env.OPENSHIFT_MONGODB_DB_HOST + ':'
     + process.env.OPENSHIFT_MONGODB_DB_PORT + '/lifesaver');
 
+
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
 app.use(function(req, res, next) {
