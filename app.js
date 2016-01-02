@@ -15,8 +15,7 @@ var tokenController = require('./Controllers/validate');
     + process.env.OPENSHIFT_MONGODB_DB_HOST + ':'
     + process.env.OPENSHIFT_MONGODB_DB_PORT + '/lifesaver'); */
 
-mongoose.connect(process.env.OPENSHIFT_MONGODB_DB_URL);
-
+mongoose.connect(process.env.OPENSHIFT_MONGODB_DB_URL || 'mongodb://127.0.0.1/27017');
 
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
@@ -36,7 +35,7 @@ app.all('/auth/*',tokenController.validateToken);
 
 app.get('/auth/user',userController.getUser);
 
-app.listen(process.env.OPENSHIFT_NODEJS_PORT, process.env.OPENSHIFT_NODEJS_IP,function () {
+app.listen(process.env.OPENSHIFT_NODEJS_PORT || '8080', process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1' ,function () {
     console.log( "Listening");
 });
 

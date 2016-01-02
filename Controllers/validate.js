@@ -10,7 +10,8 @@ exports.validateToken = function(req,res,next){
   var token = req.headers['x-access-token'];
     if(token){
         jwt.verify(token,'TOPSECRETTTT',function(err,decodedToken){
-           if(err){res.status(401).send();}
+           if(err)
+           {res.send(err);}
 
             else
            {
@@ -22,7 +23,7 @@ exports.validateToken = function(req,res,next){
     }
     else
     {
-        res.status(403).send();
+        res.status(403).send({message:'Forbidden'});
     }
 };
 
