@@ -15,11 +15,12 @@ exports.register = function (req, res) {
     user.save(function(err){
         if(err) {res.send(err);}
 
-        res.json({message:'New user added'});
+        //res.json({message:'New user added'});
+        signin();
     });
 };
 
-exports.signin = function (req,res){
+exports.signin = signin = function (req,res){
     User.findOne({username:req.body.username},function(err,user){
         if(err){res.send(err);}
 
