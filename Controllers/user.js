@@ -8,7 +8,7 @@ var jwt = require('jsonwebtoken');
 
 exports.register = function (req, res) {
         var user = new User({
-            username:req.body.username,
+            email:req.body.email,
             password:req.body.password,
             token:''
         });
@@ -21,7 +21,7 @@ exports.register = function (req, res) {
 };
 
 exports.signin = signin = function (req,res){
-    User.findOne({username:req.body.username},function(err,user){
+    User.findOne({email:req.body.email},function(err, user){
         if(err){res.send(err);}
 
 
@@ -30,13 +30,13 @@ exports.signin = signin = function (req,res){
         user.save(function(err,user){
             if(err){res.send(err);}
 
-            res.json({username:user.username,token:user.token});
+            res.json({email:user.email,token:user.token});
         })
     });
 };
 
 exports.getUser = function(req,res){
-  User.findOne({username:req.headers['x-auth-username']},function(err,user){
+  User.findOne({email:req.headers['x-auth-email']},function(err, user){
       if(err){res.send(err);}
 
       if(!user){res.status(404).send({message:'user not found'});
