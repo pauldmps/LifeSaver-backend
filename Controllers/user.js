@@ -7,17 +7,24 @@ var User = require('../Models/user');
 var jwt = require('jsonwebtoken');
 
 exports.register = function (req, res) {
-        var user = new User({
-            email:req.body.email,
-            password:req.body.password,
-            token:''
-        });
-    user.save(function(err){
-        if(err) {res.send(err);}
 
-        else
+    User.findOne({email:req.body.email},function(err,user){
+        if(user){return res.status(403).send({message:'User already exists'});}
+
+          var newUser = new User({
+              name:req.body.name,
+              email:req.body.email,
+              password:req.body.password,
+              token:'',
+              bloodGroup:req.body.bloodGroup
+               });
+
+          newUser.save(function(err){
+          if(err) {res.send(err);}
+
         //res.json({message:'New user added'});
-        signin(req,res);
+          signin(req,res);
+        });
     });
 };
 
@@ -30,7 +37,6 @@ exports.signin = signin = function (req,res){
                 if (err) {
                     res.send(err);
                 }
-
                 res.json({email:user.email,token:user.token});
             })
     });
@@ -43,8 +49,6 @@ exports.getUser = function(req,res){
       if(!user){res.status(404).send({message:'user not found'});
       }
 
-      /* else if(user.token == req.headers['x-access-token']){
-          res.json(user); */
       else if(user.password == req.decodedToken){
           res.json(user);
       }

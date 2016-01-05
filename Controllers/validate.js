@@ -11,14 +11,13 @@ exports.validateToken = function(req,res,next){
     if(token){
         jwt.verify(token,'TOPSECRETTTT',function(err,decodedToken){
            if(err)
-           {res.send(err);}
-
+           //{res.send(err);}
+           {res.status(401).send({message:'Invalid token'});}
             else
            {
                req.decodedToken = decodedToken;
                next();
            }
-
         });
     }
     else

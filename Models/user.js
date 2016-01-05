@@ -3,11 +3,14 @@
  */
 /* © Shantanu Paul. All rights reserved */
 
-
 var mongoose = require('mongoose');
 var bcrypt = require('bcrypt-nodejs');
 
 var userSchema = new mongoose.Schema({
+    name :{
+        type: String,
+        required: true
+    },
     email : {
         type: String,
         unique: true,
@@ -20,8 +23,11 @@ var userSchema = new mongoose.Schema({
     token : {
         type : String,
         required : false
+    },
+    bloodGroup: {
+        type: String,
+        required: true
     }
-
 });
 
 userSchema.pre('save',function(callback){
