@@ -15,6 +15,7 @@ exports.register = function (req, res) {
     user.save(function(err){
         if(err) {res.send(err);}
 
+        else
         //res.json({message:'New user added'});
         signin(req,res);
     });
@@ -24,18 +25,15 @@ exports.signin = signin = function (req,res){
     User.findOne({email:req.body.email},function(err, user){
         if(err){res.send(err);}
 
-
-        if(user.token == null || user.token == '') {
-
             user.token = jwt.sign(user.password, 'TOPSECRETTTT');
-            user.save(function (err) {
+            user.save(function (err,user) {
                 if (err) {
                     res.send(err);
                 }
+
+                res.json({email:user.email,token:user.token});
             })
-        }
     });
-    res.json({email:user.email,token:user.token});
 };
 
 exports.getUser = function(req,res){
