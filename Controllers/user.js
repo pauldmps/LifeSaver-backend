@@ -25,14 +25,17 @@ exports.signin = signin = function (req,res){
         if(err){res.send(err);}
 
 
+        if(user.token == null || user.token == '') {
 
-        user.token = jwt.sign(user.password,'TOPSECRETTTT');
-        user.save(function(err,user){
-            if(err){res.send(err);}
-
-            res.json({email:user.email,token:user.token});
-        })
+            user.token = jwt.sign(user.password, 'TOPSECRETTTT');
+            user.save(function (err) {
+                if (err) {
+                    res.send(err);
+                }
+            })
+        }
     });
+    res.json({email:user.email,token:user.token});
 };
 
 exports.getUser = function(req,res){
