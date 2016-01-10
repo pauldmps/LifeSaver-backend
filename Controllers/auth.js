@@ -23,7 +23,7 @@ passport.use(new LocalStrategy(function(email,password,callback) {
             if(!isMatch){return callback(null,false);}
 
             console.log('isMatch: ' + isMatch);
-            return callback(null +user);
+            return callback(null,user);
         });
     });
 }));
