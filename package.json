@@ -2,13 +2,10 @@
   "name": "lifesaver-backend",
   "version": "1.0.0",
   "description": "Backend for Lifesaver app",
-  "author": {
-    "name": "Shantanu Paul",
-    "email": "shantanupaul@live.com"
-  },
+  "author": "Shantanu Paul <shantanupaul@live.com>",
   "repository": {
     "type": "git",
-    "url": "https://github.com/openshift/origin-server"
+    "url": "git+https://github.com/openshift/origin-server.git"
   },
   "engines": {
     "node": ">= 0.6.0",
@@ -30,4 +27,5 @@
   "bundleDependencies": [],
   "private": true,
   "main": "app.js"
+
 }
