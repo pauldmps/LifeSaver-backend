@@ -9,7 +9,10 @@ var LocalStrategy = require('passport-local').Strategy;
 
 passport.use(new LocalStrategy(function(email,password,callback) {
     User.findOne({email:email},function(err, user){
-       if(err){return callback(err);}
+        console.log('email at passport: ' + email);
+        if(err){
+           return callback(err);}
+
 
        if(!user){return callback(null,false);}
 
@@ -18,7 +21,8 @@ passport.use(new LocalStrategy(function(email,password,callback) {
 
             if(!isMatch){return callback(null,false);}
 
-            return callback(null,user);
+            console.log('isMatch: ' + isMatch);
+            return callback(null +user);
         });
     });
 }));

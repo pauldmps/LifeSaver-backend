@@ -12,7 +12,8 @@ exports.validateToken = function(req,res,next){
         jwt.verify(token,'TOPSECRETTTT',function(err,decodedToken){
            if(err)
            //{res.send(err);}
-           {res.status(401).send({message:'Invalid token'});}
+           {
+               res.status(401).send({message:'Invalid token'});}
             else
            {
                req.decodedToken = decodedToken;
