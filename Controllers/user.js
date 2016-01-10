@@ -23,12 +23,12 @@ exports.register = function (req, res) {
           if(err) {res.send(err);}
 
         //res.json({message:'New user added'});
-          signin(req,res);
+        //  signin(req,res);
         });
     });
 };
 
-exports.signin = signin = function (req,res){
+exports.signin = function (req,res){
     User.findOne({email:req.body.email},function(err, user){
         if(err){res.send(err);}
 
