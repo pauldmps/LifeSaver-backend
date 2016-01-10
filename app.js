@@ -29,9 +29,9 @@ app.use(function(req, res, next) {
 });
 
 app.post('/register',userController.register);
-
+console.log('register route reached');
 app.post('/signin',authController.authorize,userController.signin);
-
+console.log('signin route reached');
 app.all('/auth/*',tokenController.validateToken);
 
 app.get('/auth/user',userController.getUser);
