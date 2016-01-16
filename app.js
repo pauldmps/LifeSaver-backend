@@ -18,15 +18,15 @@ var tokenController = require('./Controllers/validate');
 mongoose.connect(process.env.OPENSHIFT_MONGODB_DB_URL + 'lifesaver');
 //mongoose.connect('mongodb://127.0.0.1:27017/test');
 
-app.use(bodyParser.urlencoded({extended:false}));
-app.use(bodyParser.json());
-app.use(function(req, res, next) {
+//app.use(bodyParser.urlencoded({extended:false}));
+//app.use(bodyParser.json());
+ /* app.use(function(req, res, next) {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
     res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With , content-type, Authorization ,x-access-token ,' +
         'x-auth-email ,x-auth-password');
     next();
-});
+}); */
 
 app.post('/register',userController.register);
 
