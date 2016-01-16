@@ -7,8 +7,8 @@
     "type": "git",
     "url": "git+https://github.com/openshift/origin-server.git"
   },
-  "scripts":{
-    "start" : "node app.js"
+  "scripts": {
+    "start": "node app.js"
   },
   "engines": {
     "node": ">= 0.6.0",
@@ -17,7 +17,7 @@
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.14.2",
-    "express": "~4.13.3",
+    "express": "^3.2.5",
     "jsonwebtoken": "^5.5.4",
     "mongo": "^0.1.0",
     "mongodb": "^2.1.3",
