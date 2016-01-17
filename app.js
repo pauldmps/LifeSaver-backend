@@ -18,7 +18,7 @@ var tokenController = require('./Controllers/validate');
 mongoose.connect(process.env.OPENSHIFT_MONGODB_DB_URL + 'lifesaver');
 //mongoose.connect('mongodb://127.0.0.1:27017/test');
 
-//app.use(bodyParser.urlencoded({extended:false}));
+app.use(bodyParser.urlencoded({extended:true}));
 //app.use(bodyParser.json());
  /* app.use(function(req, res, next) {
     res.setHeader('Access-Control-Allow-Origin', '*');
