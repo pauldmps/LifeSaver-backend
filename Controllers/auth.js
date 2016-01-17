@@ -7,9 +7,9 @@ var passport = require('passport');
 var User = require('../Models/user');
 var LocalStrategy = require('passport-local').Strategy;
 
-passport.use(new LocalStrategy(function(email,password,callback) {
+passport.use(new LocalStrategy(function(username,password,callback) {
     console.log('passport called');
-    User.findOne({email:email},function(err, user){
+    User.findOne({email:username},function(err, user){
         console.log('email at passport: ' + email);
         if(err){
            return callback(err);}

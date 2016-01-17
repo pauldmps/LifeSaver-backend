@@ -30,8 +30,8 @@ app.use(bodyParser.urlencoded({extended:true}));
 
 app.post('/register',userController.register);
 
-//app.post('/signin',authController.authorize,userController.signin);
-app.post('/signin',userController.signin);
+app.post('/signin',authController.authorize,userController.signin);
+//app.post('/signin',userController.signin);
 
 
 
