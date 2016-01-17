@@ -7,7 +7,9 @@ var passport = require('passport');
 var User = require('../Models/user');
 var LocalStrategy = require('passport-local').Strategy;
 
-passport.use(new LocalStrategy(function(username,password,callback) {
+passport.use(new LocalStrategy({usernameField: 'email',
+                                passwordField: 'password'},
+(function(username,password,callback) {
     console.log('passport called');
     User.findOne({email:username},function(err, user){
         console.log('email at passport: ' + email);
@@ -26,6 +28,6 @@ passport.use(new LocalStrategy(function(username,password,callback) {
             return callback(null,user);
         });
     });
-}));
+})));
 
 exports.authorize = passport.authenticate('local', { session : false });
