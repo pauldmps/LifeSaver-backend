@@ -12,7 +12,7 @@ passport.use(new LocalStrategy({usernameField: 'email',
 (function(username,password,callback) {
     console.log('passport called');
     User.findOne({email:username},function(err, user){
-        console.log('email at passport: ' + email);
+        console.log('email at passport: ' + username);
         if(err){
            return callback(err);}
 
