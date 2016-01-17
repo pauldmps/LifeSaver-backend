@@ -32,9 +32,7 @@ exports.signin = signin= function (req,res){
     User.findOne({email:req.body.email},function(err, user){
         if(err){res.send(err);}
 
-
-        console.log(user);
-            user.token = jwt.sign(user.password, 'TOPSECRETTTT');
+         user.token = jwt.sign(user.password, 'TOPSECRETTTT');
             user.save(function (err,user) {
                 if (err) {
                     res.send(err);
