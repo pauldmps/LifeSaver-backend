@@ -14,7 +14,6 @@ passport.use(new LocalStrategy({usernameField: 'email',
         if(err){
            return callback(err);}
 
-
        if(!user){return callback(null,false);}
 
         user.matchPassword(password,function(err,isMatch){
