@@ -23,7 +23,7 @@ exports.register = function (req, res) {
           if(err) {res.send(err);}
 
         //res.json({message:'New user added'});
-        //  signin(req,res);
+          signin(req,res);
         });
     });
 };
