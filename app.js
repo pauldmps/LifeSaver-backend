@@ -2,7 +2,7 @@
 /* © Shantanu Paul. All rights reserved */
 
 var express = require('express');
-var bodyParser = require('body-parser');
+var bodyParser = require('body-parser')
 var mongoose = require('mongoose');
 var app = express();
 
@@ -10,13 +10,9 @@ var userController = require('./Controllers/user');
 var authController = require('./Controllers/auth');
 var tokenController = require('./Controllers/validate');
 
-/*mongoose.connect('mongodb://'+ process.env.OPENSHIFT_MONGODB_DB_USERNAME + ':'
-    + process.env.OPENSHIFT_MONGODB_DB_PASSWORD + '@'
-    + process.env.OPENSHIFT_MONGODB_DB_HOST + ':'
-    + process.env.OPENSHIFT_MONGODB_DB_PORT + '/lifesaver'); */
 
-mongoose.connect(process.env.OPENSHIFT_MONGODB_DB_URL + 'lifesaver');
-//mongoose.connect('mongodb://127.0.0.1:27017/test');
+//mongoose.connect(process.env.OPENSHIFT_MONGODB_DB_URL + 'lifesaver');
+mongoose.connect('mongodb://127.0.0.1:27017/test');
 
 app.use(bodyParser.urlencoded({extended:true}));
 //app.use(bodyParser.json());
@@ -39,7 +35,9 @@ app.all('/auth/*',tokenController.validateToken);
 
 app.get('/auth/user',userController.getUser);
 
+
+
 app.listen(process.env.OPENSHIFT_NODEJS_PORT || '8080', process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1' ,function () {
-    console.log( "Listening");
+    console.log("Listening");
 });
 

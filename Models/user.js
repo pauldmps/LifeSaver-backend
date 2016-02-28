@@ -27,6 +27,11 @@ var userSchema = new mongoose.Schema({
     bloodGroup: {
         type: String,
         required: true
+    },
+    location: {
+        type: [Number],
+        required: true,
+        index: '2d'
     }
 });
 
@@ -39,6 +44,7 @@ userSchema.pre('save',function(callback){
         if(err){return callback(err);}
 
         bcrypt.hash(user.password,salt,null,function(err,hash){
+            if(err){return callback(err);}
             user.password = hash;
             callback();
         });

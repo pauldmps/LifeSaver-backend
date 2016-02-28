@@ -28,7 +28,7 @@ exports.register = function (req, res) {
     });
 };
 
-exports.signin = signin= function (req,res){
+exports.signin = signin = function (req,res){
     User.findOne({email:req.body.email},function(err, user){
         if(err){res.send(err);}
 
@@ -56,3 +56,5 @@ exports.getUser = function(req,res){
       res.status(403).send({message:'token validation failed'});
   })
 };
+
+
