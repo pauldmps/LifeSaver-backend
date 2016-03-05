@@ -16,7 +16,8 @@ exports.register = function (req, res) {
               email:req.body.email,
               password:req.body.password,
               token:'',
-              bloodGroup:req.body.bloodGroup
+              bloodGroup:req.body.bloodGroup,
+              location:[req.body.lon,req.body.lat]
                });
 
           newUser.save(function(err){

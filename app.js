@@ -2,7 +2,7 @@
 /* © Shantanu Paul. All rights reserved */
 
 var express = require('express');
-var bodyParser = require('body-parser')
+var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var app = express();
 
@@ -11,8 +11,8 @@ var authController = require('./Controllers/auth');
 var tokenController = require('./Controllers/validate');
 
 
-//mongoose.connect(process.env.OPENSHIFT_MONGODB_DB_URL + 'lifesaver');
-mongoose.connect('mongodb://127.0.0.1:27017/test');
+mongoose.connect(process.env.OPENSHIFT_MONGODB_DB_URL + 'lifesaver');
+//mongoose.connect('mongodb://127.0.0.1:27017/test');
 
 app.use(bodyParser.urlencoded({extended:true}));
 //app.use(bodyParser.json());
