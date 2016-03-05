@@ -34,7 +34,7 @@ app.post('/signin',authController.authorize,userController.signin);
 app.all('/auth/*',tokenController.validateToken);
 
 app.get('/auth/user',userController.getUser);
-
+app.get('/auth/location',userController.getUserlocation);
 
 
 app.listen(process.env.OPENSHIFT_NODEJS_PORT || '8080', process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1' ,function () {

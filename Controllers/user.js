@@ -59,3 +59,15 @@ exports.getUser = function(req,res){
 };
 
 
+exports.getUserlocation = function(req,res){
+    User.findOne({email:req.headers['x-auth-email']}, function (err,user) {
+        if(err){res.send(err);}
+
+        if(!user){res.statu(404).send({message:'user not found'});
+        }
+
+        else if(user.password == req.decodedToken){
+            res.status(200).send({'latitude':user.location[1],'longitude':user.location[0]});
+        }
+    });
+};
