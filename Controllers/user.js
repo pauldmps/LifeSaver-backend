@@ -68,6 +68,8 @@ exports.getUserlocation = function(req,res){
 
         else if(user.password == req.decodedToken){
             res.status(200).send({'latitude':user.location[1],'longitude':user.location[0]});
+
+            
         }
     });
 };
