@@ -11,8 +11,8 @@ var authController = require('./Controllers/auth');
 var tokenController = require('./Controllers/validate');
 
 
-mongoose.connect(process.env.OPENSHIFT_MONGODB_DB_URL + 'lifesaver');
-//mongoose.connect('mongodb://127.0.0.1:27017/test');
+//mongoose.connect(process.env.OPENSHIFT_MONGODB_DB_URL + 'lifesaver');
+mongoose.connect('mongodb://127.0.0.1:27017/test');
 
 app.use(bodyParser.urlencoded({extended:true}));
 //app.use(bodyParser.json());
@@ -35,6 +35,7 @@ app.all('/auth/*',tokenController.validateToken);
 
 app.get('/auth/user',userController.getUser);
 app.get('/auth/location',userController.getUserlocation);
+app.get('/auth/nearbyUsers',userController.getNearbyUsers);
 
 
 app.listen(process.env.OPENSHIFT_NODEJS_PORT || '8080', process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1' ,function () {
