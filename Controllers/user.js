@@ -81,7 +81,7 @@ exports.getNearbyUsers = function(req,res){
 
         else if(user.password == req.decodedToken) {
             User.find({location: {$near: {$geometry: {type: 'Point', coordinates:[user.location[0],user.location[1]]},
-                $maxDistance:req.headers['max-distance']}}},{name:1,bloodGroup:1}, function (err, result) {
+                $maxDistance:req.headers['max-distance']}}},{name:1,bloodGroup:1,location:1}, function (err, result) {
 
             res.status(200).send(result);
 
