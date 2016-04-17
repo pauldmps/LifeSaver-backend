@@ -8,8 +8,8 @@ var jwt = require('jsonwebtoken');
 var fs = require('fs');
 
 
-//var dirName = process.env.OPENSHIFT_DATA_DIR;
-var dirName = './uploads/';
+var dirName = process.env.OPENSHIFT_DATA_DIR;
+//var dirName = './uploads/';
 
 exports.register = function (req, res) {
 
@@ -124,7 +124,6 @@ exports.getProfilePic = function(req,res) {
                     res.end(img, 'binary');
                 }
             });
-
         }
     });
 };
