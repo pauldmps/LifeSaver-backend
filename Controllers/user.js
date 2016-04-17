@@ -5,6 +5,11 @@
 
 var User = require('../Models/user');
 var jwt = require('jsonwebtoken');
+var fs = require('fs');
+
+
+//var dirName = process.env.OPENSHIFT_DATA_DIR;
+var dirName = './uploads/';
 
 exports.register = function (req, res) {
 
@@ -17,7 +22,8 @@ exports.register = function (req, res) {
               password:req.body.password,
               token:'',
               bloodGroup:req.body.bloodGroup,
-              location:[req.body.lon,req.body.lat]
+              location:[req.body.lon,req.body.lat],
+              profilePicture:req.body.profilePicture
                });
 
           newUser.save(function(err){
@@ -33,12 +39,16 @@ exports.signin = signin = function (req,res){
     User.findOne({email:req.body.email},function(err, user){
         if(err){res.send(err);}
 
-         user.token = jwt.sign(user.password, 'TOPSECRETTTT');
+        console.log(req.body.email);
+
+
+        user.token = jwt.sign(user.password, 'TOPSECRETTTT');
             user.save(function (err,user) {
                 if (err) {
                     res.send(err);
+                    return;
                 }
-                res.json({email:user.email,token:user.token});
+                res.status(200).send({email:user.email,token:user.token});
             })
     });
 };
@@ -72,20 +82,75 @@ exports.getUserlocation = function(req,res){
     });
 };
 
-exports.getNearbyUsers = function(req,res){
-    User.findOne({email:req.headers['x-auth-email']},function(err,user){
-        if(err){res.send(err);}
-
-        if(!user){res.status(404).send({message:'user not found'});
+exports.getNearbyUsers = function(req,res) {
+    User.findOne({email: req.headers['x-auth-email']}, function (err, user) {
+        if (err) {
+            res.send(err);
         }
 
-        else if(user.password == req.decodedToken) {
-            User.find({location: {$near: {$geometry: {type: 'Point', coordinates:[user.location[0],user.location[1]]},
-                $maxDistance:req.headers['max-distance']}}},{name:1,bloodGroup:1,location:1}, function (err, result) {
+        if (!user) {
+            res.status(404).send({message: 'user not found'});
+        }
 
-            res.status(200).send(result);
+        else if (user.password == req.decodedToken) {
+            User.find({
+                location: {
+                    $near: {
+                        $geometry: {type: 'Point', coordinates: [user.location[0], user.location[1]]},
+                        $maxDistance: req.headers['max-distance']
+                    }
+                }
+            }, {name: 1, bloodGroup: 1, location: 1}, function (err, result) {
+
+                res.status(200).send(result);
 
             });
         }
     });
 };
+exports.getProfilePic = function(req,res) {
+    User.findOne({email: req.headers['x-auth-email']}, function (err, user) {
+        if (err) {
+            res.send(err);
+        }
+        if (!user) {
+            res.status(404).send({message: 'user not found'});
+        }
+        else if (user.password == req.decodedToken) {
+            var img = fs.readFile(dirName + user._id, function (err) {
+                if(err){res.send(err)}
+                else {
+                    res.writeHead(200, {'Content-Type': 'image/jpg'});
+                    res.end(img, 'binary');
+                }
+            });
+
+        }
+    });
+};
+
+
+exports.setProfilePic = function(req,res){
+       User.findOne({email: req.headers['x-auth-email']}, function (err, user) {
+               if (err) {
+                   res.send(err);
+               }
+               if (!user) {
+                   res.status(404).send({message: 'user not found'});
+               }
+               else if (user.password == req.decodedToken) {
+                   console.log(user._id);
+                   console.log(dirName + req.file.filename);
+                   console.log(dirName + user._id);
+                   fs.rename(dirName + req.file.filename,dirName + user._id, function(err){
+                       if (err) {
+                           res.send(err);
+                       }
+                       else {
+                           user.profilePicture = dirName + user._id;
+                           user.save();
+                       }
+                   });
+               }
+           });
+       };

@@ -30,8 +30,12 @@ var userSchema = new mongoose.Schema({
     },
     location: {
         type: [Number],
-        required: true,
+        required: false,
         index: '2dsphere'
+    },
+    profilePicture: {
+        type: String,
+        required: false
     }
 });
 
