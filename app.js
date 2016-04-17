@@ -23,13 +23,13 @@ app.use(bodyParser.urlencoded({extended:true}));
 app.use(busboy());
 //app.use(upload);
 app.use(bodyParser.json());
- /* app.use(function(req, res, next) {
+app.use(function(req, res, next) {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
     res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With , content-type, Authorization ,x-access-token ,' +
         'x-auth-email ,x-auth-password');
     next();
-}); */
+});
 
 app.post('/register',userController.register);
 app.post('/signin',authController.authorize,userController.signin);
