@@ -40,7 +40,7 @@ app.get('/auth/user',userController.getUser);
 app.get('/auth/location',userController.getUserlocation);
 app.get('/auth/nearbyUsers',userController.getNearbyUsers);
 app.post('/auth/profilePic',upload.single('profilepic'),function(req,res){
-        //console.log(req.file);
+        console.log(req.file);
         userController.setProfilePic(req,res);
 });
 app.get('/auth/profilePic',userController.getProfilePic);
