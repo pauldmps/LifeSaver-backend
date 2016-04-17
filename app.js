@@ -6,8 +6,8 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var app = express();
 var multer = require('multer');
-var upload = multer({dest: process.env.OPENSHIFT_DATA_DIR});
-//var upload = multer({dest: './uploads/'});
+//var upload = multer({dest: process.env.OPENSHIFT_DATA_DIR});
+var upload = multer({dest: './uploads/'});
 var busboy = require('connect-busboy');
 
 
@@ -16,8 +16,8 @@ var authController = require('./Controllers/auth');
 var tokenController = require('./Controllers/validate');
 
 
-mongoose.connect(process.env.OPENSHIFT_MONGODB_DB_URL + 'lifesaver');
-//mongoose.connect('mongodb://127.0.0.1:27017/test');
+//mongoose.connect(process.env.OPENSHIFT_MONGODB_DB_URL + 'lifesaver');
+mongoose.connect('mongodb://127.0.0.1:27017/test');
 
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(busboy());
@@ -39,10 +39,11 @@ app.all('/auth/*',tokenController.validateToken);
 app.get('/auth/user',userController.getUser);
 app.get('/auth/location',userController.getUserlocation);
 app.get('/auth/nearbyUsers',userController.getNearbyUsers);
-app.post('/auth/profilePic',upload.single('profilepic'),function(req,res){
+app.post('/auth/profilePic',upload.single('profilepic'),function(req,res,next){
         console.log(req.file);
-        userController.setProfilePic(req,res);
-});
+        //userController.setProfilePic(req,res);
+        next();
+},userController.setProfilePic);
 app.get('/auth/profilePic',userController.getProfilePic);
 
 
