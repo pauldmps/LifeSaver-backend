@@ -127,22 +127,14 @@ exports.getProfilePic = function(req,res) {
 
 
 exports.setProfilePic = function(req,res){
-        console.log('inside function');
        User.findOne({email: req.headers['x-auth-email']}, function (err, user) {
-              console.log('inside findone');
                if (err) {
                    res.send(err);
-                   console.log('user findone error');
                }
                if (!user) {
                    res.status(404).send({message: 'user not found'});
-                   console.log('user not found');
                }
                else if (user.password == req.decodedToken) {
-                   console.log('user id: '+ user._id);
-                   console.log('inside else if');
-                   //console.log(dirName + req.file.filename);
-                   //console.log(dirName + user._id);
                    fs.rename(dirName + req.file.filename,dirName + user._id, function(err){
                        if (err) {
                            res.send(err);
@@ -153,9 +145,6 @@ exports.setProfilePic = function(req,res){
                            res.status(200).send({message:'save OK'});
                        }
                    });
-               }
-               else{
-                   console.log('password not matching with token');
                }
            });
        };

@@ -17,7 +17,6 @@ exports.validateToken = function(req,res,next){
                res.status(401).send({message:'Invalid token'});}
             else
            {
-               console.log(decodedToken);
                req.decodedToken = decodedToken;
                next();
            }
