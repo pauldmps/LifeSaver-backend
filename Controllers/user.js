@@ -136,8 +136,8 @@ exports.setProfilePic = function(req,res){
                }
                else if (user.password == req.decodedToken) {
                    console.log(user._id);
-                   console.log(dirName + req.file.filename);
-                   console.log(dirName + user._id);
+                   //console.log(dirName + req.file.filename);
+                   //console.log(dirName + user._id);
                    fs.rename(dirName + req.file.filename,dirName + user._id, function(err){
                        if (err) {
                            res.send(err);
