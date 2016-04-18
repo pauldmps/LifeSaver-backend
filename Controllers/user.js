@@ -129,6 +129,7 @@ exports.getProfilePic = function(req,res) {
 exports.setProfilePic = function(req,res){
         console.log('inside function');
        User.findOne({email: req.headers['x-auth-email']}, function (err, user) {
+              console.log('inside findone');
                if (err) {
                    res.send(err);
                    console.log('user findone error');
