@@ -138,7 +138,8 @@ exports.setProfilePic = function(req,res){
                    res.status(404).send({message: 'user not found'});
                    console.log('user not found');
                }
-               else if (user.password == req.decodedToken) {
+               //else if (user.password == req.decodedToken) {
+                else {
                    console.log('inside else if');
                    //console.log(dirName + req.file.filename);
                    //console.log(dirName + user._id);
