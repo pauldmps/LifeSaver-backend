@@ -131,9 +131,11 @@ exports.setProfilePic = function(req,res){
        User.findOne({email: req.headers['x-auth-email']}, function (err, user) {
                if (err) {
                    res.send(err);
+                   console.log('user findone error');
                }
                if (!user) {
                    res.status(404).send({message: 'user not found'});
+                   console.log('user not found');
                }
                else if (user.password == req.decodedToken) {
                    console.log(user._id);
