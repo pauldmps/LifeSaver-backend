@@ -139,7 +139,7 @@ exports.setProfilePic = function(req,res){
                    console.log('user not found');
                }
                else if (user.password == req.decodedToken) {
-                   console.log(user._id);
+                   console.log('inside else if');
                    //console.log(dirName + req.file.filename);
                    //console.log(dirName + user._id);
                    fs.rename(dirName + req.file.filename,dirName + user._id, function(err){
