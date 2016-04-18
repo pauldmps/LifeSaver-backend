@@ -138,8 +138,7 @@ exports.setProfilePic = function(req,res){
                    res.status(404).send({message: 'user not found'});
                    console.log('user not found');
                }
-               //else if (user.password == req.decodedToken) {
-                else {
+               else if (user.password == req.decodedToken) {
                    console.log('inside else if');
                    //console.log(dirName + req.file.filename);
                    //console.log(dirName + user._id);
@@ -153,6 +152,9 @@ exports.setProfilePic = function(req,res){
                            res.status(200).send({message:'save OK'});
                        }
                    });
+               }
+               else{
+                   console.log('password not matching with token');
                }
            });
        };
