@@ -7,6 +7,7 @@ var jwt = require('jsonwebtoken');
 
 exports.validateToken = function(req,res,next){
 
+    console.log('inside validate');
   var token = req.headers['x-access-token'];
     if(token){
         jwt.verify(token,'TOPSECRETTTT',function(err,decodedToken){
@@ -16,6 +17,7 @@ exports.validateToken = function(req,res,next){
                res.status(401).send({message:'Invalid token'});}
             else
            {
+               console.log(decodedToken);
                req.decodedToken = decodedToken;
                next();
            }
