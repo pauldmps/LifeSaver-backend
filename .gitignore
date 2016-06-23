@@ -44,3 +44,6 @@ Temporary Items
 .apdisk
 node_modules
 .openshift
+
+# Image upload folder
+uploads
