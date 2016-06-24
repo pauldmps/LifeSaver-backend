@@ -54,7 +54,7 @@ exports.signin = signin = function (req,res){
 };
 
 exports.getUser = function(req,res){
-  User.findOne({email:req.headers['x-auth-email']},function(err, user){
+  User.findOne({email:req.query.email},function(err, user){
       if(err){res.send(err);}
 
       if(!user){res.status(404).send({message:'user not found'});
@@ -70,7 +70,7 @@ exports.getUser = function(req,res){
 
 
 exports.getUserlocation = function(req,res){
-    User.findOne({email:req.headers['x-auth-email']}, function (err,user) {
+    User.findOne({email:req.query.email}, function (err,user) {
         if(err){res.send(err);}
 
         if(!user){res.status(404).send({message:'user not found'});
@@ -83,7 +83,7 @@ exports.getUserlocation = function(req,res){
 };
 
 exports.getNearbyUsers = function(req,res) {
-    User.findOne({email: req.headers['x-auth-email']}, function (err, user) {
+    User.findOne({email: req.query.email}, function (err, user) {
         if (err) {
             res.send(err);
         }
@@ -97,7 +97,7 @@ exports.getNearbyUsers = function(req,res) {
                 location: {
                     $near: {
                         $geometry: {type: 'Point', coordinates: [user.location[0], user.location[1]]},
-                        $maxDistance: req.headers['max-distance']
+                        $maxDistance: req.query.maxDistance
                     }
                 }
             }, {name: 1, bloodGroup: 1, location: 1}, function (err, result) {
@@ -109,7 +109,7 @@ exports.getNearbyUsers = function(req,res) {
     });
 };
 exports.getProfilePic = function(req,res) {
-    User.findOne({email: req.headers['x-auth-email']}, function (err, user) {
+    User.findOne({email: req.query.email}, function (err, user) {
         if (err) {
             res.send(err);
         }
@@ -130,7 +130,7 @@ exports.getProfilePic = function(req,res) {
 
 
 exports.setProfilePic = function(req,res){
-       User.findOne({email: req.headers['x-auth-email']}, function (err, user) {
+       User.findOne({email: req.query.email}, function (err, user) {
                if (err) {
                    res.send(err);
                }
@@ -141,7 +141,7 @@ exports.setProfilePic = function(req,res){
                    console.log(user._id);
                    console.log(dirName + req.file.filename);
                    console.log(dirName + user._id);
-                   fs.rename(dirName + req.file.filename,dirName + user._id, function(err){
+                   fs.rename(dirName + req.file.filename, dirName + user._id, function(err){
                        if (err) {
                            res.send(err);
                        }

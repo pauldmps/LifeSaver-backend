@@ -46,4 +46,4 @@ node_modules
 .openshift
 
 # Image upload folder
-uploads
+/uploads
