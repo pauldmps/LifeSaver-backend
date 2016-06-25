@@ -22,12 +22,12 @@ exports.register = function (req, res) {
               password:req.body.password,
               token:'',
               bloodGroup:req.body.bloodGroup,
-              location:[req.body.lon,req.body.lat],
+              location:[req.body.longitude,req.body.latitude],
               profilePicture:req.body.profilePicture
                });
 
           newUser.save(function(err){
-          if(err) {res.send(err);}
+          if(err) {return res.status(400).send(err);}
 
         //res.json({message:'New user added'});
           signin(req,res);
@@ -37,7 +37,7 @@ exports.register = function (req, res) {
 
 exports.signin = signin = function (req,res){
     User.findOne({email:req.body.email},function(err, user){
-        if(err){res.send(err);}
+        if(err){return res.status(400).send(err);}
 
         console.log(req.body.email);
 
