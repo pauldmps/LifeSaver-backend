@@ -80,7 +80,7 @@ exports.getUserlocation = function(req,res){
 };
 
 exports.getNearbyUsers = function(req,res) {
-    Console.log("Inside getNearbyUsers");
+    console.log("Inside getNearbyUsers");
     User.findOne({email: req.query.email}, function (err, user) {
         if (err) {
             res.status(503).send(err);
