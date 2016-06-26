@@ -9,7 +9,7 @@ exports.validateToken = function(req,res,next){
 
   var token = req.query.token;
     if(token){
-        Console.log("Token found");
+        console.log("Token found");
         jwt.verify(token,'TOPSECRETTTT',function(err,decodedToken){
            if(err) {
                res.status(401).send({message:'Invalid token'});
@@ -23,7 +23,7 @@ exports.validateToken = function(req,res,next){
     }
     else
     {
-        Console.log("Token not found");
+        console.log("Token not found");
         res.status(403).send({message:'Forbidden'});
     }
 };
