@@ -39,9 +39,6 @@ exports.signin = signin = function (req,res){
     User.findOne({email:req.body.email},function(err, user){
         if(err){return res.status(400).send(err);}
 
-        console.log(req.body.email);
-
-
         user.token = jwt.sign(user.password, 'TOPSECRETTTT');
             user.save(function (err,user) {
                 if (err) {
@@ -85,7 +82,7 @@ exports.getUserlocation = function(req,res){
 exports.getNearbyUsers = function(req,res) {
     User.findOne({email: req.query.email}, function (err, user) {
         if (err) {
-            res.send(err);
+            res.status(503).send(err);
         }
 
         if (!user) {
