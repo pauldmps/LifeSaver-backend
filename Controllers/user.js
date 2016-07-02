@@ -143,8 +143,7 @@ exports.setProfilePic = function(req,res){
                            res.send(err);
                        }
                        else {
-                           user.profilePicture = dirName + user._id;
-                           user.save();
+                          res.status(200).send({message:'OK'});
                        }
                    });
                }
