@@ -38,7 +38,6 @@ exports.register = function (req, res) {
 exports.signin = signin = function (req,res){
     User.findOne({email:req.body.email},function(err, user){
         if(err){return res.status(400).send(err);}
-
         user.token = jwt.sign(user.password, 'TOPSECRETTTT');
             user.save(function (err,user) {
                 if (err) {

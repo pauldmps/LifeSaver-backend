@@ -35,9 +35,23 @@ jspm_packages
 # Optional npm cache directory
 .npm
 
+
 # Optional REPL history
 .node_repl_history
 
 #idea files
 .idea
 lifesaver-backend.iml
+]
+# Directories potentially created on remote AFP share
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+node_modules
+.openshift
+
+# Image upload folder
+/uploads
+
