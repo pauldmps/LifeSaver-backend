@@ -96,7 +96,7 @@ exports.getNearbyUsers = function(req,res) {
                         $maxDistance: req.query.maxDistance
                     }
                 }
-            }, {name: 1, bloodGroup: 1, location: 1}, function (err, result) {
+            }, {name: 1, email: 1, bloodGroup: 1, location: 1}, function (err, result) {
 
                 res.status(200).send(result);
 

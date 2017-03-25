@@ -16,8 +16,8 @@ var authController = require('./Controllers/auth');
 var tokenController = require('./Controllers/validate');
 
 
-mongoose.connect(process.env.OPENSHIFT_MONGODB_DB_URL + 'lifesaver');
-//mongoose.connect('mongodb://127.0.0.1:27017/test');
+//mongoose.connect(process.env.OPENSHIFT_MONGODB_DB_URL + 'lifesaver');
+mongoose.connect('mongodb://127.0.0.1:27017/test');
 
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(busboy());
@@ -42,6 +42,9 @@ app.get('/auth/nearbyUsers',userController.getNearbyUsers);
 app.post('/auth/profilePic',upload.single('profilepic'),function(req,res){
         //console.log(req.file);
         userController.setProfilePic(req,res);
+
+
+
 });
 app.get('/auth/profilePic',userController.getProfilePic);
 
