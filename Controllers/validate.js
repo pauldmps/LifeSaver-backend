@@ -22,7 +22,6 @@ exports.validateToken = function(req,res,next){
     }
     else
     {
-        console.log("Token not found");
         res.status(403).send({message:'Forbidden'});
     }
 };

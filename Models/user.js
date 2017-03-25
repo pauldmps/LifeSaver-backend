@@ -38,13 +38,19 @@ var userSchema = new mongoose.Schema({
 userSchema.pre('save',function(callback){
     var user = this;
 
-    if(!user.isModified('password')){return callback();}
+    if(!user.isModified('password')){
+        return callback();
+    }
 
     bcrypt.genSalt(5,function(err,salt){
-        if(err){return callback(err);}
+        if(err){
+            return callback(err);
+        }
 
         bcrypt.hash(user.password,salt,null,function(err,hash){
-            if(err){return callback(err);}
+            if(err){
+                return callback(err);
+            }
             user.password = hash;
             callback();
         });
@@ -53,7 +59,9 @@ userSchema.pre('save',function(callback){
 
 userSchema.methods.matchPassword = function(password,callback){
     bcrypt.compare(password,this.password,function(err,isMatch){
-        if(err){return callback(err);}
+        if(err){
+            return callback(err);
+        }
         callback(null,isMatch);
     });
 };

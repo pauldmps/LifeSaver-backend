@@ -9,12 +9,31 @@ var fs = require('fs');
 
 
 var dirName = process.env.OPENSHIFT_DATA_DIR;
-//var dirName = './uploads/';
+//var dirName = './uploads/'; //NOSONAR
+
+
+const signin = exports.signin = function (req,res){
+    User.findOne({email:req.body.email},function(err, user){
+        if(err){
+            return res.status(400).send(err);
+        }
+        user.token = jwt.sign(user.password, 'TOPSECRETTTT');
+        user.save(function (err,user) {
+            if (err) {
+                res.send(err);
+                return;
+            }
+            res.status(200).send({email:user.email,token:user.token});
+        })
+    });
+};
 
 exports.register = function (req, res) {
 
     User.findOne({email:req.body.email},function(err,user){
-        if(user){return res.status(403).send({message:'User already exists'});}
+        if(user){
+            return res.status(403).send({message:'User already exists'});
+        }
 
           var newUser = new User({
               name:req.body.name,
@@ -27,36 +46,27 @@ exports.register = function (req, res) {
                });
 
           newUser.save(function(err){
-          if(err) {return res.status(400).send(err);}
-
-        //res.json({message:'New user added'});
-          signin(req,res);
+          if(err) {
+              return res.status(400).send(err);
+          }
+              signin(req,res);
         });
     });
 };
 
-exports.signin = signin = function (req,res){
-    User.findOne({email:req.body.email},function(err, user){
-        if(err){return res.status(400).send(err);}
-        user.token = jwt.sign(user.password, 'TOPSECRETTTT');
-            user.save(function (err,user) {
-                if (err) {
-                    res.send(err);
-                    return;
-                }
-                res.status(200).send({email:user.email,token:user.token});
-            })
-    });
-};
+
 
 exports.getUser = function(req,res){
   User.findOne({email:req.query.email},function(err, user){
-      if(err){res.send(err);}
-
-      if(!user){res.status(404).send({message:'user not found'});
+      if(err){
+          res.send(err);
       }
 
-      else if(user.password == req.decodedToken){
+      if(!user){
+          res.status(404).send({message:'user not found'});
+      }
+
+      else if(user.password === req.decodedToken){
           res.json(user);
       }
       else
@@ -67,12 +77,15 @@ exports.getUser = function(req,res){
 
 exports.getUserlocation = function(req,res){
     User.findOne({email:req.query.email}, function (err,user) {
-        if(err){res.send(err);}
-
-        if(!user){res.status(404).send({message:'user not found'});
+        if(err){
+            res.send(err);
         }
 
-        else if(user.password == req.decodedToken){
+        if(!user){
+            res.status(404).send({message:'user not found'});
+        }
+
+        else if(user.password === req.decodedToken){
             res.status(200).send({'latitude':user.location[1],'longitude':user.location[0]});
         }
     });
@@ -88,7 +101,7 @@ exports.getNearbyUsers = function(req,res) {
             res.status(404).send({message: 'user not found'});
         }
 
-        else if (user.password == req.decodedToken) {
+        else if (user.password === req.decodedToken) {
             User.find({
                 location: {
                     $near: {
@@ -112,9 +125,11 @@ exports.getProfilePic = function(req,res) {
         if (!user) {
             res.status(404).send({message: 'user not found'});
         }
-        else if (user.password == req.decodedToken) {
+        else if (user.password === req.decodedToken) {
             var img = fs.readFile(dirName + user._id, function (err) {
-                if(err){res.send(err)}
+                if(err){
+                    res.send(err)
+                }
                 else {
                     res.writeHead(200, {'Content-Type': 'image/jpg'});
                     res.end(img, 'binary');
@@ -133,10 +148,7 @@ exports.setProfilePic = function(req,res){
                if (!user) {
                    res.status(404).send({message: 'user not found'});
                }
-               else if (user.password == req.decodedToken) {
-                   console.log(user._id);
-                   console.log(dirName + req.file.filename);
-                   console.log(dirName + user._id);
+               else if (user.password === req.decodedToken) {
                    fs.rename(dirName + req.file.filename, dirName + user._id, function(err){
                        if (err) {
                            res.send(err);
