@@ -108,7 +108,7 @@ exports.getNearbyUsers = function(req,res) {
                         $geometry: {type: 'Point', coordinates: [user.location[0], user.location[1]]},
                         $maxDistance: req.query.maxDistance
                     }
-                , email: req.query.email}
+                , $not{email: req.query.email}}
             }, {name: 1, email: 1, bloodGroup: 1, location: 1}, function (err, result) {
 
                 res.status(200).send(result);
