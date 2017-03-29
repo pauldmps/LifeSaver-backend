@@ -40,6 +40,10 @@ app.post('/auth/profilePic',upload.single('profilepic'),function(req,res){
 });
 app.get('/auth/profilePic',userController.getProfilePic);
 
+console.log('-------------------------------------------------------------------');
+console.log('PORT =: ' + process.env.PORT);
+console.log('-------------------------------------------------------------------');
+
 
 app.listen(process.env.PORT || '8080' ,function () {
     console.log("Listening");
