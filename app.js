@@ -16,7 +16,8 @@ var authController = require('./Controllers/auth');
 var tokenController = require('./Controllers/validate');
 
 
-mongoose.connect(process.env.OPENSHIFT_MONGODB_DB_URL + 'lifesaver'); //NOSONAR
+mongoose.connect(process.env.MONGOLAB_URI); //NOSONAR
+//mongoose.connect(process.env.OPENSHIFT_MONGODB_DB_URL + 'lifesaver'); //NOSONAR
 //mongoose.connect('mongodb://127.0.0.1:27017/test'); //NOSONAR
 
 app.use(bodyParser.urlencoded({extended:true}));
