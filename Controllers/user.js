@@ -12,6 +12,18 @@ var dirName = process.env.OPENSHIFT_DATA_DIR;
 //var dirName = './uploads/'; //NOSONAR
 
 
+exports.validate = function(req,res,next) {
+  if(req.body.email === undefined){
+      return res.status(401).send({'message':'Email is required'});
+  }
+
+  if(req.body.password === undefined){
+      return res.status(401).send({'message':'Password is required'});
+  }
+
+  next();
+};
+
 const login = exports.login = function (req,res){
     User.findOne({email:req.body.email},function(err, user){
         if(err){

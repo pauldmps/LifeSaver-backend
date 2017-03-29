@@ -25,7 +25,7 @@ app.use(bodyParser.json());
 
 
 app.post('/register',userController.register);
-app.post('/login',authController.authorize,userController.login);
+app.post('/login',userController.validate,authController.authorize,userController.login);
 
 app.all('/auth/*',tokenController.validateToken);
 

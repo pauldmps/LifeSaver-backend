@@ -14,12 +14,15 @@ passport.use(new LocalStrategy({usernameField: 'email',
         if(err){
            return callback(err);}
 
-       if(!user){return callback(null,false);}
+       if(!user){
+            return callback(null,false);}
 
         user.matchPassword(password,function(err,isMatch){
-            if(err){return callback(err);}
+            if(err){
+                return callback(err);}
 
-            if(!isMatch){return callback(null,false);}
+            if(!isMatch){
+                return callback(null,false);}
 
             return callback(null,user);
         });
