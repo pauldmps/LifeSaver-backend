@@ -12,7 +12,7 @@ var dirName = process.env.OPENSHIFT_DATA_DIR;
 //var dirName = './uploads/'; //NOSONAR
 
 
-const signin = exports.signin = function (req,res){
+const login = exports.login = function (req,res){
     User.findOne({email:req.body.email},function(err, user){
         if(err){
             return res.status(400).send(err);
@@ -49,7 +49,7 @@ exports.register = function (req, res) {
           if(err) {
               return res.status(400).send(err);
           }
-              signin(req,res);
+              login(req,res);
         });
     });
 };

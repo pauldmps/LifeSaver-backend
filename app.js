@@ -6,8 +6,7 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var app = express();
 var multer = require('multer');
-var upload = multer({dest: process.env.OPENSHIFT_DATA_DIR});
-//var upload = multer({dest: './uploads/'}); //NOSONAR
+var upload = multer({dest: process.env.OPENSHIFT_DATA_DIR} || {dest: './uploads/'});
 var busboy = require('connect-busboy');
 
 
@@ -15,9 +14,10 @@ var userController = require('./Controllers/user');
 var authController = require('./Controllers/auth');
 var tokenController = require('./Controllers/validate');
 
-mongoose.connect('mongodb://heroku_hjtb042q:rna58dfp446qr7faq8si55e82d@ds145370.mlab.com:45370/heroku_hjtb042q'); //NOSONAR
-/*//mongoose.connect(process.env.OPENSHIFT_MONGODB_DB_URL + 'lifesaver'); //NOSONAR
-//mongoose.connect('mongodb://127.0.0.1:27017/test'); //NOSONAR*/
+const HEROKU_MONGODB_URL = 'mongodb://heroku_hjtb042q:rna58dfp446qr7faq8si55e82d@ds145370.mlab.com:45370/heroku_hjtb042q';
+
+mongoose.connect(HEROKU_MONGODB_URL
+    || process.env.OPENSHIFT_MONGODB_DB_URL + 'lifesaver' || 'mongodb://127.0.0.1:27017/test');
 
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(busboy());
@@ -25,7 +25,7 @@ app.use(bodyParser.json());
 
 
 app.post('/register',userController.register);
-app.post('/signin',authController.authorize,userController.signin);
+app.post('/login',authController.authorize,userController.signin);
 
 app.all('/auth/*',tokenController.validateToken);
 
@@ -39,10 +39,6 @@ app.post('/auth/profilePic',upload.single('profilepic'),function(req,res){
 
 });
 app.get('/auth/profilePic',userController.getProfilePic);
-
-console.log('-------------------------------------------------------------------');
-console.log('PORT =: ' + process.env.PORT);
-console.log('-------------------------------------------------------------------');
 
 
 app.listen(process.env.PORT || '8080' ,function () {
