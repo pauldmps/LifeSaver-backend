@@ -15,12 +15,12 @@ var dirName = process.env.OPENSHIFT_DATA_DIR;
 const login = exports.login = function (req,res){
     User.findOne({email:req.body.email},function(err, user){
         if(err){
-            return res.status(400).send(err);
+            return res.status(401).send(err);
         }
         user.token = jwt.sign(user.password, 'TOPSECRETTTT');
         user.save(function (err,user) {
             if (err) {
-                res.status(401).send(err);
+                res.send(err);
                 return;
             }
             res.status(200).send({email:user.email,token:user.token});
