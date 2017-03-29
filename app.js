@@ -15,12 +15,9 @@ var userController = require('./Controllers/user');
 var authController = require('./Controllers/auth');
 var tokenController = require('./Controllers/validate');
 
-
-var MONGOLAB_URI = 'mongodb://heroku_hjtb042q:rna58dfp446qr7faq8si55e82d@ds145370.mlab.com:45370/heroku_hjtb042q';
-
-mongoose.connect(MONGOLAB_URI); //NOSONAR
-//mongoose.connect(process.env.OPENSHIFT_MONGODB_DB_URL + 'lifesaver'); //NOSONAR
-//mongoose.connect('mongodb://127.0.0.1:27017/test'); //NOSONAR
+mongoose.connect('mongodb://heroku_hjtb042q:rna58dfp446qr7faq8si55e82d@ds145370.mlab.com:45370/heroku_hjtb042q'); //NOSONAR
+/*//mongoose.connect(process.env.OPENSHIFT_MONGODB_DB_URL + 'lifesaver'); //NOSONAR
+//mongoose.connect('mongodb://127.0.0.1:27017/test'); //NOSONAR*/
 
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(busboy());
