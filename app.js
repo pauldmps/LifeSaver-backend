@@ -41,7 +41,11 @@ app.post('/auth/profilePic',upload.single('profilepic'),function(req,res){
 app.get('/auth/profilePic',userController.getProfilePic);
 
 
-app.listen(process.env.OPENSHIFT_NODEJS_PORT || '8080', process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1' ,function () {
+app.listen(process.env.PORT || '8080' ,function () {
     console.log("Listening");
 });
+
+/*app.listen(process.env.OPENSHIFT_NODEJS_PORT || '8080', process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1' ,function () {
+    console.log("Listening");
+});*/
 
