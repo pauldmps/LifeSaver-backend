@@ -20,7 +20,7 @@ const login = exports.login = function (req,res){
         user.token = jwt.sign(user.password, 'TOPSECRETTTT');
         user.save(function (err,user) {
             if (err) {
-                res.send(err);
+                res.status(401).send(err);
                 return;
             }
             res.status(200).send({email:user.email,token:user.token});
