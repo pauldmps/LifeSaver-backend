@@ -47,15 +47,24 @@ exports.register = function (req, res) {
             return res.status(403).send({message:'User already exists'});
         }
 
-          var newUser = new User({
-              name:req.body.name,
-              email:req.body.email,
-              password:req.body.password,
-              token:'',
-              bloodGroup:req.body.bloodGroup,
-              location:[req.body.longitude,req.body.latitude],
-              profilePicture:req.body.profilePicture
-               });
+
+        if(req.body.latitude === undefined){
+            req.body.latitude = 0.0;
+        }
+
+        if(req.body.longitude === undefined){
+            req.body.longitude = 0.0;
+        }
+
+        var newUser = new User({
+            name:req.body.name,
+            email:req.body.email,
+            password:req.body.password,
+            token:'',
+            bloodGroup:req.body.bloodGroup,
+            location:[req.body.longitude,req.body.latitude],
+            profilePicture:req.body.profilePicture
+            });
 
           newUser.save(function(err){
           if(err) {
