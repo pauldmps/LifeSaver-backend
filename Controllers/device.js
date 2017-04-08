@@ -15,18 +15,49 @@ exports.registerDevice = function (req,res) {
                 .send({'message': 'User not found. Please register before trying this operation'});
         }
 
-        var newDevice = new Device({
-            email: req.body.email,
-            loginToken: req.body.loginToken,
-            gcmToken: req.body.gcmToken
-        });
-
-        newDevice.save(function (err){
-            if(err) {
+    Device.findOneAndUpdate({email:req.body.email},
+                            {$set:{
+                                    email: req.body.email,
+                                    loginToken: req.body.loginToken,
+                                    gcmToken: req.body.gcmToken
+                                  }
+                            },
+                            {upsert:true},
+            
+                            function (err) {
+                                if(err){
+                                    res.status(400).send(err);
+                                }
+    });
+        
+    /*Device.findOne({email:req.body.email}, function(err, device){
+            if(err){
                 return res.status(400).send(err);
             }
-            return res.status(200).send({'message':'Device ID saved'});
-        });
+
+            if(device){
+                device.gcmToken = req.body.gcmToken;
+                device.save();
+            }
+            else{
+                var newDevice = new Device({
+                    email: req.body.email,
+                    loginToken: req.body.loginToken,
+                    gcmToken: req.body.gcmToken
+                });
+
+                newDevice.save(function(err){
+                    if(err) {
+                        return res.status(400).send(err);
+                    }
+                    return res.status(200).send({'message':'Device ID saved'});
+                });
+            }
+
+    });*/
+        
+
+
     });
 };
 
