@@ -35,7 +35,7 @@ const login = exports.login = function (req,res){
                 res.send(err);
                 return;
             }
-            res.status(200).send({email:user.email,token:user.token});
+            res.status(200).send({email:user.email,loginToken:user.token});
         })
     });
 };
