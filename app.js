@@ -13,6 +13,7 @@ var busboy = require('connect-busboy');
 var userController = require('./Controllers/user');
 var authController = require('./Controllers/auth');
 var tokenController = require('./Controllers/validate');
+var deviceController = require('./Controllers/device');
 
 const HEROKU_MONGODB_URL = 'mongodb://heroku_hjtb042q:rna58dfp446qr7faq8si55e82d@ds145370.mlab.com:45370/heroku_hjtb042q';
 
@@ -32,13 +33,13 @@ app.all('/auth/*',tokenController.validateToken);
 app.get('/auth/user',userController.getUser);
 app.get('/auth/location',userController.getUserlocation);
 app.get('/auth/nearbyUsers',userController.getNearbyUsers);
-app.post('/auth/profilePic',upload.single('profilepic'),function(req,res){
-        userController.setProfilePic(req,res);
 
-
-
-});
 app.get('/auth/profilePic',userController.getProfilePic);
+
+app.post('/auth/profilePic',upload.single('profilepic'),function(req,res){
+    userController.setProfilePic(req,res);
+});
+app.post('/auth/registerdevice',deviceController.registerDevice);
 
 
 app.listen(process.env.PORT || '8080' ,function () {
