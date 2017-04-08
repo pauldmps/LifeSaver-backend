@@ -45,6 +45,7 @@ exports.registerDevice = function (req,res) {
 exports.sendMessage = function (req, res) {
     var sender = new gcm.Sender('AIzaSyAzHEL0y-DP9SU5BmQkjBqF7LJAVLDtM9k');
     var message = new gcm.Message({
+        priority: 'high',
         data: {'message':'User user1 just contacted you!'}
     });
 
