@@ -40,6 +40,7 @@ app.post('/auth/profilePic',upload.single('profilepic'),function(req,res){
     userController.setProfilePic(req,res);
 });
 app.post('/auth/registerdevice',deviceController.registerDevice);
+app.post('/auth/sendmessage',deviceController.sendMessage);
 
 
 app.listen(process.env.PORT || '8080' ,function () {
