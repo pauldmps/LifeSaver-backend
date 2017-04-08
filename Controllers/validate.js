@@ -7,7 +7,7 @@ var jwt = require('jsonwebtoken');
 
 exports.validateToken = function(req,res,next){
 
-  var token = req.query.token;
+  var token = req.query.loginToken === undefined ? req.body.loginToken : req.query.loginToken;
     if(token){
         jwt.verify(token,'TOPSECRETTTT',function(err,decodedToken){
            if(err) {

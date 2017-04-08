@@ -28,7 +28,7 @@ exports.registerDevice = function (req,res) {
             return res.status(200).send({'message':'Device ID saved'});
         });
     });
-}
+};
 
     exports.sendMessage = function (req, res) {
 
