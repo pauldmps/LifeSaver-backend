@@ -24,9 +24,13 @@ exports.registerDevice = function (req,res) {
                             },
                             {upsert:true},
             
-                            function (err) {
+                            function (err, device) {
                                 if(err){
-                                    res.status(400).send(err);
+                                    return res.status(400).send(err);
+                                }
+
+                                if(device){
+                                    return res.status(200).send({'message':'Device ID saved'});
                                 }
     });
         
